@@ -37,6 +37,7 @@ app.configure('production', function(){
 var varnish_codes = new VarnishCodes(function(){
   sys.puts('ERROR!');
 });
+varnish_codes.record_codes(['200','503','200','200','200']);
 
 var v_log = spawn('varnishlog', ['-c', '-i TxStatus']);
 
@@ -57,7 +58,8 @@ v_log.stdout.on('data', function (data_buffer) {
 
 app.get('/', function(req, res){
   res.render('index', {
-    data: varnish_codes.all_codes
+    data: varnish_codes.all_codes,
+    scores: varnish_codes.current_scores
   });
 });
 

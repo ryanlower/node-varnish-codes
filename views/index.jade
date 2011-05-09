@@ -1,2 +1,12 @@
-h1 Varnish Codes
-p data: #{data}
+h1 Academia Status Codes
+ul.scores
+  li#200s 200s
+    div(style:'width:' + 10*scores['2s'] + 'px')= scores['2s']
+  li#300s 300s
+    div(style:'width:' + 10*scores['3s'] + 'px')= scores['3s']
+  li#400s 400s
+    div(style:'width:' + 10*scores['4s'] + 'px')= scores['4s']
+  li#500s 500s
+    div(style:'width:' + 10*scores['5s'] + 'px')= scores['5s']
+  li#others others
+    div(style:'width:' + 10*scores['others'] + 'px')= scores['others']

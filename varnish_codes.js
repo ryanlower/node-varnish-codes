@@ -4,6 +4,7 @@ var sys = require('sys'),
 function VarnishCodes(callback_if_bad){
     this.all_codes = new Array;
     this.current_codes = [];
+    this.current_scores = [];
     this.callback = callback_if_bad;
 };
   
@@ -12,7 +13,7 @@ VarnishCodes.prototype.record_codes = function(codes){
     this.all_codes.unshift(codes);
     this.all_codes = this.all_codes.slice(0,10);
     sys.puts('all_codes length: ' + this.all_codes.length);
-    this.score_codes();
+    this.current_scores = this.score_codes();
 };
 
 VarnishCodes.prototype.score_codes = function(){
