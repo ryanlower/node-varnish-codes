@@ -1,4 +1,6 @@
-h1 Academia Status Codes
+h1 Academia Status
+h2 Response Codes
+div#pie
 ul.scores
   li#200s 200s
     div(style:'width:' + 10*scores['2s'] + 'px')= scores['2s']
@@ -10,3 +12,7 @@ ul.scores
     div(style:'width:' + 10*scores['5s'] + 'px')= scores['5s']
   li#others others
     div(style:'width:' + 10*scores['others'] + 'px')= scores['others']
+script
+  var r = Raphael(document.getElementById('pie'), 300, 200);
+  var piechart_data = [#{scores['2s']}, #{scores['3s']}, #{scores['4s']}, #{scores['5s']}, #{scores['others']}];
+  r.g.piechart(100, 100, 100, piechart_data, {legend: ['200s', '300s', '400s', '500s', 'others']});
