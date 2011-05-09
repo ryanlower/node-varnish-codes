@@ -39,18 +39,18 @@ var varnish_codes = new VarnishCodes(function(){
 });
 varnish_codes.record_codes(['200','503','200','200','200']);
 
-// var v_log = spawn('varnishlog', ['-c', '-i TxStatus']);
+var v_log = spawn('varnishlog', ['-c', '-i TxStatus']);
 
-// v_log.stdout.on('data', function (data_buffer) {
-//   var codes = [];
-//   var data_string = data_buffer.toString('utf8');
-//   var data_array = data_string.split(/\n/);
-//   for (e in data_array) {
-//     code = data_array[e].split(/\s/).pop();
-//     codes.push(code);
-//   }
-//   varnish_codes.record_codes(codes);
-// });
+v_log.stdout.on('data', function (data_buffer) {
+  var codes = [];
+  var data_string = data_buffer.toString('utf8');
+  var data_array = data_string.split(/\n/);
+  for (e in data_array) {
+    code = data_array[e].split(/\s/).pop();
+    codes.push(code);
+  }
+  varnish_codes.record_codes(codes);
+});
 
 
 
