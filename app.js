@@ -5,13 +5,15 @@ var express = require('express'),
     v = require('valentine'),
     http = require('http'),
     io = require('socket.io'),
-    spawn = require('child_process').spawn;
+    spawn = require('child_process').spawn,
+    mailer = require('mailer');
 
 var VarnishCodes = require('./varnish_codes.js').VarnishCodes;
 
+var config = require('./conf/config.js');
+
 var app = module.exports = express.createServer();
 var socket = io.listen(app);
-
 
 // Configuration
 
@@ -36,10 +38,21 @@ app.configure('production', function(){
 
 // App code
 
-var varnish_codes = new VarnishCodes(socket, function(){
-  sys.puts('ERROR!');
+var varnish_codes = new VarnishCodes(socket, function(percent_of_5s){
+  var mail = {
+    host: 'smtp.sendgrid.net',
+    port: '25',
+    authentication: 'login',
+    username: config.sendgrid.username,
+    password: config.sendgrid.password,
+    to: config.sendgrid.to,
+    from: config.sendgrid.from,
+    subject: 'Varnish: ' + percent_of_5s + '% of requests are 500-ing',
+    body: percent_of_5s + '% of requests are 500-ing'
+    }
+    mailer.send(mail);
 });
-varnish_codes.record_codes(['200','503','200','200','200']);
+varnish_codes.record_codes(['200']);
 
 var v_log = spawn('varnishlog', ['-c', '-i TxStatus']);
 

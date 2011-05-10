@@ -38,10 +38,10 @@ VarnishCodes.prototype.score_codes = function(){
 };
 
 VarnishCodes.prototype.report_if_bad = function(scores){
-    var percent_of_5s = scores.code_5s / scores.total;
+    var percent_of_5s = 100 * scores.code_5s / scores.total;
     sys.puts('percent_of_5s: ' + percent_of_5s);
-    if (percent_of_5s > 0.1) {
-        this.callback();
+    if (percent_of_5s > 1) {
+        this.callback(percent_of_5s);
     };
 };
 
