@@ -1,18 +1,37 @@
+script(src='/socket.io/socket.io.js')
 h1 Academia Status
 h2 Response Codes
 div#pie
-ul.scores
-  li#200s 200s
-    div(style:'width:' + 10*scores['2s'] + 'px')= scores['2s']
-  li#300s 300s
-    div(style:'width:' + 10*scores['3s'] + 'px')= scores['3s']
-  li#400s 400s
-    div(style:'width:' + 10*scores['4s'] + 'px')= scores['4s']
-  li#500s 500s
-    div(style:'width:' + 10*scores['5s'] + 'px')= scores['5s']
-  li#others others
-    div(style:'width:' + 10*scores['others'] + 'px')= scores['others']
+div#debug
+  h4 Data
+  ul.scores
+    li#200s 200s
+      div(style:'width:' + 10*scores['2s'] + 'px')= scores['2s']
+    li#300s 300s
+      div(style:'width:' + 10*scores['3s'] + 'px')= scores['3s']
+    li#400s 400s
+      div(style:'width:' + 10*scores['4s'] + 'px')= scores['4s']
+    li#500s 500s
+      div(style:'width:' + 10*scores['5s'] + 'px')= scores['5s']
+    li#others others
+      div(style:'width:' + 10*scores['others'] + 'px')= scores['others']
+
 script
+  var varnish_pie = null;
   var r = Raphael(document.getElementById('pie'), 300, 200);
-  var piechart_data = [#{scores['2s']}, #{scores['3s']}, #{scores['4s']}, #{scores['5s']}, #{scores['others']}];
-  r.g.piechart(100, 100, 100, piechart_data, {legend: ['200s', '300s', '400s', '500s', 'others']});
+
+  function draw_varnish_pie(scores){
+    if (varnish_pie != null){
+      varnish_pie.remove();
+    };
+    // var piechart_data = [#{scores['2s']}, #{scores['3s']}, #{scores['4s']}, #{scores['5s']}, #{scores['others']}];
+    var piechart_data = [scores.code_2s, scores.code_3s, scores.code_4s, scores.code_5s, scores.code_others];
+    varnish_pie = r.g.piechart(100, 100, 100, piechart_data, {legend: ['200s', '300s', '400s', '500s', 'others']});
+  };
+
+script
+  var socket = new io.Socket();
+  socket.connect();
+  socket.on('message', function(e){
+    draw_varnish_pie(e);
+  });

@@ -3,12 +3,14 @@ var express = require('express'),
     sys = require('sys'),
     util = require('util'),
     v = require('valentine'),
+    http = require('http'),
+    io = require('socket.io'),
     spawn = require('child_process').spawn;
 
 var VarnishCodes = require('./varnish_codes.js').VarnishCodes;
 
 var app = module.exports = express.createServer();
-
+var socket = io.listen(app);
 
 
 // Configuration
@@ -34,7 +36,7 @@ app.configure('production', function(){
 
 // App code
 
-var varnish_codes = new VarnishCodes(function(){
+var varnish_codes = new VarnishCodes(socket, function(){
   sys.puts('ERROR!');
 });
 varnish_codes.record_codes(['200','503','200','200','200']);
@@ -71,3 +73,11 @@ if (!module.parent) {
   app.listen(82);
   console.log("Express server listening on port %d", app.address().port);
 }
+
+
+
+// Socket.io
+socket.on('connection', function(client){ 
+  client.send(varnish_codes.current_scores);
+});
+

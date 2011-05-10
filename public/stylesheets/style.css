@@ -12,6 +12,11 @@ div#pie {
 	width: 300px;
 }
 
+div#debug {
+	margin-top: 100px;
+	border: 1px solid grey;
+}
+
 ul.scores {
 }
 
