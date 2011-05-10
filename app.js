@@ -78,6 +78,13 @@ app.get('/', function(req, res){
   });
 });
 
+app.get('/health', function(req, res){
+  if (varnish_codes.percent_of_5s > 10) {
+    throw new Error('Bad Health! (50x percent: ' + varnish_codes.percent_of_5s + '%)');
+  };
+  res.end();
+});
+
 
 
 // Server

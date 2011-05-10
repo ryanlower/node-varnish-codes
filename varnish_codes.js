@@ -7,6 +7,7 @@ function VarnishCodes(socket, callback_if_bad){
     this.current_scores = [];
     this.callback = callback_if_bad;
     this.socket = socket;
+    this.percent_of_5s = 0;
 };
   
 VarnishCodes.prototype.record_codes = function(codes){
@@ -38,10 +39,10 @@ VarnishCodes.prototype.score_codes = function(){
 };
 
 VarnishCodes.prototype.report_if_bad = function(scores){
-    var percent_of_5s = 100 * scores.code_5s / scores.total;
-    sys.puts('percent_of_5s: ' + percent_of_5s);
-    if (percent_of_5s > 1) {
-        this.callback(percent_of_5s);
+    this.percent_of_5s = 100 * scores.code_5s / scores.total;
+    sys.puts('percent_of_5s: ' + this.percent_of_5s);
+    if (this.percent_of_5s > 1) {
+        this.callback(this.percent_of_5s);
     };
 };
 
