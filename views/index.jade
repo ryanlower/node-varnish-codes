@@ -1,7 +1,8 @@
 script(src='/socket.io/socket.io.js')
 h1 Academia Status
-h2 Response Codes
-div#pie
+div#response_codes
+  h2 Response Codes:
+  div#pie
 div#debug
   h4 Data
   ul.scores
@@ -18,7 +19,7 @@ div#debug
 
 script
   var varnish_pie = null;
-  var r = Raphael(document.getElementById('pie'), 300, 200);
+  var r = Raphael(document.getElementById('pie'), 600, 400);
 
   function draw_varnish_pie(scores){
     if (varnish_pie != null){
@@ -26,12 +27,15 @@ script
     };
     // var piechart_data = [#{scores['2s']}, #{scores['3s']}, #{scores['4s']}, #{scores['5s']}, #{scores['others']}];
     var piechart_data = [scores.code_2s, scores.code_3s, scores.code_4s, scores.code_5s, scores.code_others];
-    varnish_pie = r.g.piechart(100, 100, 100, piechart_data, {legend: ['200s', '300s', '400s', '500s', 'others']});
+    varnish_pie = r.g.piechart(200, 200, 200, piechart_data, {legend: ['200s', '300s', '400s', '500s', 'others']});
   };
 
 script
   var socket = new io.Socket();
   socket.connect();
+  set_bottom_bar_text('connected...');
   socket.on('message', function(e){
+    set_bottom_bar_text('recieving...');
     draw_varnish_pie(e);
+    set_bottom_bar_text(#{scores.total} + ' data points, ' + #{scores.code_5s} + ' 50x');
   });

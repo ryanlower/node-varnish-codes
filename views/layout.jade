@@ -6,4 +6,17 @@ html
     script(src='http://assets0.academia.edu/javascripts/raphael-min.js')
     script(src='http://assets2.academia.edu/javascripts/g.raphael-min.js')
     script(src='http://assets1.academia.edu/javascripts/g.pie-min.js')
-  body!= body
+  body
+    div#bottom_bar Test
+    script
+      function current_time(){
+        var currentTime = new Date();
+        var hours = currentTime.getHours();
+        var minutes = currentTime.getMinutes();
+        return hours + ':' + minutes;
+      };
+      var bottom_bar = document.getElementById('bottom_bar');
+      function set_bottom_bar_text(text){
+        bottom_bar.innerHTML = '&nbsp;[ ' + current_time() +' ]&nbsp;&nbsp;&nbsp;' + text;
+      };
+    != body

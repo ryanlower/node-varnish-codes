@@ -52,7 +52,7 @@ var varnish_codes = new VarnishCodes(socket, function(percent_of_5s){
     }
     mailer.send(mail);
 });
-varnish_codes.record_codes(['200']);
+varnish_codes.record_codes(['200', '200']);
 
 var v_log = spawn('varnishlog', ['-c', '-i TxStatus']);
 

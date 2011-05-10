@@ -1,20 +1,50 @@
+* {
+	b1order: 1px solid red;
+	padding: 0px;
+	margin: 0px;
+}
+
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+	padding: 10%;
+	font: 2em 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+div#bottom_bar {
+	position: absolute;
+	bottom: 0px;
+	left: 0px;
+	width: 100%;
+	background-color: black;
+	opacity:.6;
+	filter:alpha(opacity=60);
+	color: white;
+	font-size: 16px;
+	padding: 5px 0px;
+}
+
+h1 {
+	color: #424242;
+	padding-bottom: 15px;
+}
+
+h2 {
+	padding-bottom: 5px;
 }
 
 a {
-  color: #00B7FF;
+	color: #00B7FF;
 }
 
 div#pie {
-	height: 200px;
-	width: 300px;
+	height: 400px;
+	width: 600px;
+	padding: 10px 0px;
 }
 
 div#debug {
 	margin-top: 100px;
 	border: 1px solid grey;
+	display: none;
 }
 
 ul.scores {
