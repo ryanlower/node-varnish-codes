@@ -66,6 +66,7 @@ v_log.stdout.on('data', function (data_buffer) {
       codes.push(code);
     }
   }
+  sys.puts(codes);
   varnish_codes.record_codes(codes);
 });
 
