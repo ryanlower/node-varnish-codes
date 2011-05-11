@@ -37,5 +37,5 @@ script
   socket.on('message', function(e){
     set_bottom_bar_text('recieving...');
     draw_varnish_pie(e);
-    set_bottom_bar_text(#{scores.total} + ' data points, ' + #{scores.code_5s} + ' 50x');
+    set_bottom_bar_text(scores.total + ' data points, ' + scores.code_5s + ' 50x');
   });
