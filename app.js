@@ -62,7 +62,9 @@ v_log.stdout.on('data', function (data_buffer) {
   var data_array = data_string.split(/\n/);
   for (e in data_array) {
     code = data_array[e].split(/\s/).pop();
-    codes.push(code);
+    if (code.match(/\d\d\d/)) {
+      codes.push(code);
+    }
   }
   varnish_codes.record_codes(codes);
 });
