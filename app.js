@@ -75,11 +75,24 @@ v_log.stdout.on('data', function (data_buffer) {
 // Routes
 
 app.get('/', function(req, res){
-  res.render('index', {
+  res.render('index');
+});
+
+app.get('/codes', function(req, res){
+  res.render('codes', {
     data: varnish_codes.all_codes,
     scores: varnish_codes.current_scores
   });
 });
+
+app.get('/bots', function(req, res){
+  res.render('bots');
+});
+
+app.get('/what', function(req, res){
+  res.render('what');
+});
+
 
 app.get('/health', function(req, res){
   if (varnish_codes.percent_of_5s > 10) {

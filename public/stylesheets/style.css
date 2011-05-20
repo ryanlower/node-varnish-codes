@@ -1,12 +1,12 @@
 * {
-	b1order: 1px solid red;
+	bor1der: 1px solid red;
 	padding: 0px;
 	margin: 0px;
 }
 
 body {
 	padding: 50px;
-	padding-top: 15%;
+	padding-top: 10%;
 	font: 2em 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
@@ -35,7 +35,12 @@ h2 {
 
 a {
 	color: #00B7FF;
+	text-decoration: none;
 }
+a:hover {
+	color: #009AD6;
+}
+
 
 div#pie {
 	padding: 10px 0px;
