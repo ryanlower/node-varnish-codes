@@ -44,9 +44,12 @@ a:hover {
 
 div#pie {
 	padding: 10px 0px;
-    position: absolute;
-    top: 15%;
-    right: 0;
+	position: absolute;
+	top: 15%;
+	right: 0;
+}
+div#speeder {
+	margin-left: 20%;
 }
 
 div#debug {

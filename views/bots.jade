@@ -1,3 +1,37 @@
 script(src='/socket.io/socket.io.js')
+script(src='/javascripts/raphael.speedometer.js')
 h1 Academia Status
-h2 Bot Activity:
+div#bot_speedometer
+  h2 Bot Activity:
+  div#speeder
+
+script
+  var speeder = Raphael.fn.speedometer('speeder', 400, 400);
+  speeder.setOptions({
+    startNumber: 0,
+    endNumber: 14,
+    numNumbers: 7,
+    color2: '#009AD6',
+    odometerText: 'Req/s',
+    rumbleMagnitude: 0.05,
+    rumble: true
+  });
+  function update_bot_speed(speed){
+    speeder.accelerate(speed);
+    speeder.scrollTo(speed*10);
+  };
+  var socket = new io.Socket();
+  socket.connect();
+  set_bottom_bar_text('connected...');
+  socket.on('message', function(e){
+    console.log(e);
+    if (e.code_2s) {
+      set_bottom_bar_text('recieving...');
+      update_bot_speed(5);
+      set_bottom_bar_text('Current bot request rate: ' + 5 + ' requests per second');
+    };
+    update_bot_speed(5);
+    update_bot_speed(5);
+
+  });
+
